@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Sysolutions.Erp.WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:Sysolutions.Erp.WebApi.Controllers.v1.AccountController.InsertAsync(Sysolutions.Erp.Application.Services.Accounts.Commands.AddAccountCommand.AddAccountCommand)">
+            <summary>
+            Operación que permite crear una nueva Cuenta.
+            </summary>
+            <param name="addAccountCommand">addAccountCommand</param>
+            <returns></returns>
+        </member>
+        <member name="M:Sysolutions.Erp.WebApi.Controllers.v1.AccountController.TokenAsync(Sysolutions.Erp.Application.Services.Accounts.Commands.AddTokenCommand.AddTokenCommand)">
+            <summary>
+            Operación que permite generar un TOKEN a partir de un client y secret.
+            </summary>
+            <param name="addTokenCommand">addTokenCommand</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
