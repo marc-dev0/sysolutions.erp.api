@@ -9,6 +9,11 @@ using Sysolutions.Erp.Application.Commons;
 using System.Diagnostics;
 using System;
 using Sysolutions.Erp.Application.Services.Accounts.Queries.GetAccountByAll;
+using Sysolutions.Erp.Application.Services.Customers.Commands.DeleteCustomerCommand;
+using Sysolutions.Erp.Application.Services.Accounts.Commands.DeleteAccountCommand;
+using Sysolutions.Erp.Application.Services.Customers.Queries.GetCustomerByIdQuery;
+using Sysolutions.Erp.Application.Services.Accounts.Queries.GetAccountById;
+using Sysolutions.Erp.Application.Services.Accounts.Commands.UpdateAccountCommand;
 
 namespace Sysolutions.Erp.WebApi.Controllers.v1
 {
@@ -24,9 +29,36 @@ namespace Sysolutions.Erp.WebApi.Controllers.v1
             _mediator = mediator;
         }
 
+
+        [HttpGet("GetAsync/{customerId}")]
+        public async Task<IActionResult> GetAsync(GetCustomerByIdQuery getCustomerByIdQuery)
+        {
+            var response = await _mediator.Send(getCustomerByIdQuery);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+
+            //if (response.IsSuccess)
+            //    return Ok(response);
+            //else
+            //    return BadRequest(response);
+        }
+
+        [HttpGet("GetByIdAsync")]
+        public async Task<IActionResult> GetByIdAsync(int accountId)
+        {
+            try
+            {
+                var response = await _mediator.Send(new GetAccountByIdQuery(accountId));
+                return response.IsSuccess ? Ok(response) : BadRequest(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { mensaje = ex.Message });
+            }
+        }
+
         [ProducesResponseType(typeof(Response<GetAccountByAllResponse>), StatusCodes.Status200OK)]
         [HttpGet("GetAllAsync")]
-        public async Task<IActionResult> GetAsync([FromQuery] GetAccountByAllQuery query)
+        public async Task<IActionResult> GetAllAsync([FromQuery] GetAccountByAllQuery query)
         {
             try
             {
@@ -57,6 +89,41 @@ namespace Sysolutions.Erp.WebApi.Controllers.v1
             return BadRequest(response);
         }
 
+        /// <summary>
+        /// Operación que permite actualizar una cuenta.
+        /// </summary>
+        /// <param name="addAccountCommand">addAccountCommand</param>
+        /// <returns></returns>
+        [HttpPut("UpdateAsync")]
+        public async Task<IActionResult> UpdateAsync([FromBody] UpdateAccountCommand updateAccountCommand)
+        {
+            if (updateAccountCommand is null)
+                return BadRequest();
+            try
+            {
+                var response = await _mediator.Send(updateAccountCommand);
+                if (response.IsSuccess)
+                    return Ok(response);
+
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { mensaje = ex.Message });
+            }
+        }
+
+        [HttpDelete("DeleteAsync")]
+        public async Task<IActionResult> DeleteAsync(int accountId,int modifiedAccountId)
+        {
+            /*if (command is null)
+                return BadRequest();*/
+
+            var response = await _mediator.Send(new DeleteAccountCommand(accountId, modifiedAccountId));
+            if (response.IsSuccess)
+                return Ok(response);
+            return BadRequest(response);
+        }
 
         /// <summary>
         /// Operación que permite generar un TOKEN a partir de un client y secret.

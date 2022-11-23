@@ -13,5 +13,7 @@ namespace Sysolutions.Erp.Application.Services.Accounts.Queries.GetAccountByAll
         public string LastName { get; set; }
         public string Client { get; set; }
         public string StateDescription { get; set; }
+        public string State { get; set; }
+        public DateTime RegistrationDate { get; set; }
     }
 }

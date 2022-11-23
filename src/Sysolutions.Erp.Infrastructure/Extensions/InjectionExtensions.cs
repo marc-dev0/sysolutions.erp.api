@@ -15,6 +15,7 @@ namespace Sysolutions.Erp.Infrastructure.Extensions
             services.AddSingleton<IConnectionFactory, ConnectionFactory>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
             //services.AddScoped<INotify, Notify>();
 
             /*var rabbitMqSection = configuration.GetSection("RabbitMq");

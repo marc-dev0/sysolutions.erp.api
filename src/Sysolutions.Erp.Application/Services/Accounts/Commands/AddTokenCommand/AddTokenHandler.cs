@@ -56,7 +56,7 @@ namespace Sysolutions.Erp.Application.Services.Accounts.Commands.AddTokenCommand
                 var account = await _accountRepository.GetAsync(request.Client);
                 if (account is not null)
                 {
-                    if (BC.Verify(request.Secret, account.Secret))
+                    if (BC.Verify(request.Secret.ToLower(), account.Secret))
                     {
                         response.Data = _mapper.Map<AddTokenResponse>(account);
                         response.Data.Token = GenerateToken(account);
