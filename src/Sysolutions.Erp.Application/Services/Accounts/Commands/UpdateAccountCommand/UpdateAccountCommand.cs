@@ -20,5 +20,6 @@ namespace Sysolutions.Erp.Application.Services.Accounts.Commands.UpdateAccountCo
         public string Phone { get; set; }
         public string Mail { get; set; }
         public string IdentificationDocument { get; set; }
+        public int ProfileId { get; set; }
     }
 }

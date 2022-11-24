@@ -12,5 +12,7 @@
         public string LastName { get; set; }
         public string Phone { get; set; }
         public string Mail { get; set; }
+        public int ProfileId { get; set; }
+        public string ProfileDescription { get; set; }
     }
 }

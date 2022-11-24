@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sysolutions.Erp.Application.Services.Accounts.Queries.GetAccountByAll
 {
@@ -15,5 +11,6 @@ namespace Sysolutions.Erp.Application.Services.Accounts.Queries.GetAccountByAll
         public string StateDescription { get; set; }
         public string State { get; set; }
         public DateTime RegistrationDate { get; set; }
+        public string ProfileDescription { get; set; }
     }
 }

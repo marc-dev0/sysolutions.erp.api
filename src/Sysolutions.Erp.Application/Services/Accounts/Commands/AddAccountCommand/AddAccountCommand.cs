@@ -5,7 +5,7 @@ namespace Sysolutions.Erp.Application.Services.Accounts.Commands.AddAccountComma
 {
     public class AddAccountCommand : IRequest<Response<bool>>
     {
-        public int RegistrationAccountId { get; set; }
+        
         public string Client { get; set; }
         public string Secret { get; set; }
         public string FirstName { get; set; }
@@ -14,5 +14,7 @@ namespace Sysolutions.Erp.Application.Services.Accounts.Commands.AddAccountComma
         public string Phone { get; set; }
         public string Mail { get; set; }
         public string IdentificationDocument { get; set; }
+        public int RegistrationAccountId { get; set; }
+        public int ProfileId { get; set; }
     }
 }
