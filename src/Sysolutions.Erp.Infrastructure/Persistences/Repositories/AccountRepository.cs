@@ -73,6 +73,7 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Repositories
                     parameters.Add("Mail", account.Mail);
                     parameters.Add("IdentificationDocument", account.IdentificationDocument);
                     parameters.Add("State", account.State);
+                    parameters.Add("ProfileId", account.ProfileId);
 
                     var result = await connection.ExecuteAsync(query, param: parameters, commandType: CommandType.StoredProcedure);
                     return result > 0;
@@ -102,6 +103,7 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Repositories
                     parameters.Add("Mail", account.Mail);
                     parameters.Add("IdentificationDocument", account.IdentificationDocument);
                     parameters.Add("State", account.State);
+                    parameters.Add("ProfileId", account.ProfileId);
 
                     var result = await connection.ExecuteAsync(query, param: parameters, commandType: CommandType.StoredProcedure);
                     return result > 0;

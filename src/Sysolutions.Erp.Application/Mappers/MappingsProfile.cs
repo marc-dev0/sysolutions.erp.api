@@ -8,6 +8,7 @@ using Sysolutions.Erp.Application.Services.Accounts.Queries.GetAccountById;
 using Sysolutions.Erp.Application.Services.Customers.Commands.AddCustomerCommand;
 using Sysolutions.Erp.Application.Services.Customers.Commands.UpdateCustomerCommand;
 using Sysolutions.Erp.Application.Services.Products.Queries.GetProductByAll;
+using Sysolutions.Erp.Application.Services.Profiles.Queries.GetProfileByAll;
 using Sysolutions.Erp.Domain.Entities;
 
 namespace Sysolutions.Erp.Application.Mappers
@@ -27,6 +28,9 @@ namespace Sysolutions.Erp.Application.Mappers
 
 
             CreateMap<GetProductByAllResponse, Product>().ReverseMap();
+
+            CreateMap<GetProfileByAllResponse, Profiles>().ReverseMap();
+
             CreateMap<CustomerDto, Customer>().ReverseMap()
                 .ForMember(destination => destination.Code, source => source.MapFrom(src => src.CustomerId));
             
