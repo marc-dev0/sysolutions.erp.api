@@ -9,6 +9,8 @@ using Sysolutions.Erp.Application.Services.Customers.Commands.AddCustomerCommand
 using Sysolutions.Erp.Application.Services.Customers.Commands.UpdateCustomerCommand;
 using Sysolutions.Erp.Application.Services.Products.Queries.GetProductByAll;
 using Sysolutions.Erp.Application.Services.Profiles.Queries.GetProfileByAll;
+using Sysolutions.Erp.Application.Services.Sales.Commands.AddSalesOrderCommand;
+using Sysolutions.Erp.Application.Services.Sales.Queries.GetSalesOrderByAllQuery;
 using Sysolutions.Erp.Domain.Entities;
 
 namespace Sysolutions.Erp.Application.Mappers
@@ -31,6 +33,11 @@ namespace Sysolutions.Erp.Application.Mappers
 
             CreateMap<GetProfileByAllResponse, Profiles>().ReverseMap();
 
+            CreateMap<GetBaseSalesOrderByAllResponse, BaseSalesOrder>().ReverseMap();
+            CreateMap<GetSalesOrderByAll, SalesOrder>().ReverseMap();
+            CreateMap<GetSalesOrderDetailByAll, SalesOrderDetail>().ReverseMap();
+            CreateMap<GetSalesOrderByAllQuery, SalesOrder>().ReverseMap();
+
             CreateMap<CustomerDto, Customer>().ReverseMap()
                 .ForMember(destination => destination.Code, source => source.MapFrom(src => src.CustomerId));
             
@@ -38,6 +45,9 @@ namespace Sysolutions.Erp.Application.Mappers
                 .ForMember(destination => destination.Code, source => source.MapFrom(src => src.CustomerId));
             CreateMap<UpdateCustomerCommand, Customer>().ReverseMap()
                 .ForMember(destination => destination.Code, source => source.MapFrom(src => src.CustomerId));
+
+            CreateMap<AddSalesOrderCommand, SalesOrder>().ReverseMap();
+            CreateMap<AddSalesOrderDetailViewModel, SalesOrderDetail>().ReverseMap();
         }
     }
 }
