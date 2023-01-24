@@ -18,6 +18,11 @@ namespace Sysolutions.Erp.Infrastructure.Extensions
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProfileRepository, ProfileRepository>();
             services.AddScoped<ISalesRepository, SalesRepository>();
+            services.AddScoped<IMasterRepository, MasterRepository>();
+            services.AddScoped<iCategoryRepository, CategoryRepository>();
+            services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
+            services.AddScoped<IMeasureRepository, MeasureRepository>();
+            services.AddScoped<IBrandRepository, BrandRepository>();
             //services.AddScoped<INotify, Notify>();
 
             /*var rabbitMqSection = configuration.GetSection("RabbitMq");

@@ -5,12 +5,16 @@ using Sysolutions.Erp.Application.Services.Accounts.Commands.AddTokenCommand;
 using Sysolutions.Erp.Application.Services.Accounts.Commands.UpdateAccountCommand;
 using Sysolutions.Erp.Application.Services.Accounts.Queries.GetAccountByAll;
 using Sysolutions.Erp.Application.Services.Accounts.Queries.GetAccountById;
+using Sysolutions.Erp.Application.Services.Brands.Queries.GetBrandByAllQuery;
+using Sysolutions.Erp.Application.Services.Categories.Queries.GetCategoryByAll;
 using Sysolutions.Erp.Application.Services.Customers.Commands.AddCustomerCommand;
 using Sysolutions.Erp.Application.Services.Customers.Commands.UpdateCustomerCommand;
+using Sysolutions.Erp.Application.Services.Measures.Queries.GetMeasureByAll;
 using Sysolutions.Erp.Application.Services.Products.Queries.GetProductByAll;
 using Sysolutions.Erp.Application.Services.Profiles.Queries.GetProfileByAll;
 using Sysolutions.Erp.Application.Services.Sales.Commands.AddSalesOrderCommand;
 using Sysolutions.Erp.Application.Services.Sales.Queries.GetSalesOrderByAllQuery;
+using Sysolutions.Erp.Application.Services.SubCategories.Queries.GetSubCategoryByCategoryId;
 using Sysolutions.Erp.Domain.Entities;
 
 namespace Sysolutions.Erp.Application.Mappers
@@ -28,9 +32,18 @@ namespace Sysolutions.Erp.Application.Mappers
             CreateMap<AddTokenResponse, Account>().ReverseMap();
             CreateMap<AccountDto, Account>().ReverseMap();
 
-
+            //Products
             CreateMap<GetProductByAllResponse, Product>().ReverseMap();
 
+            //Categories
+            CreateMap<GetCategoryByAllResponse, Category>().ReverseMap();
+            //SubCategories
+            CreateMap<GetSubCategoryByCategoryIdResponse, SubCategory>().ReverseMap();
+            //Measures
+            CreateMap<GetMeasureByAllResponse, Measure>().ReverseMap();
+            //Brands
+            CreateMap<GetBrandByAllResponse, Brand>().ReverseMap();
+            //Profiles
             CreateMap<GetProfileByAllResponse, Profiles>().ReverseMap();
 
             CreateMap<GetBaseSalesOrderByAllResponse, BaseSalesOrder>().ReverseMap();
