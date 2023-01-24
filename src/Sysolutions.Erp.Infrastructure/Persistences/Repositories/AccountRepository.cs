@@ -79,9 +79,9 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Repositories
                     return result > 0;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 

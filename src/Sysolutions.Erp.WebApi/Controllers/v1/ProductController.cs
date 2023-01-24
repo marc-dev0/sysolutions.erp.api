@@ -6,6 +6,8 @@ using Sysolutions.Erp.Application.Commons;
 using System.Threading.Tasks;
 using System;
 using Sysolutions.Erp.Application.Services.Products.Queries.GetProductByAll;
+using Sysolutions.Erp.Application.Services.Accounts.Commands.AddAccountCommand;
+using Sysolutions.Erp.Application.Services.Products.Commands.AddProductCommand;
 
 namespace Sysolutions.Erp.WebApi.Controllers.v1
 {
@@ -34,6 +36,23 @@ namespace Sysolutions.Erp.WebApi.Controllers.v1
             {
                 return BadRequest(new { mensaje = ex.Message });
             }
+        }
+
+        /// <summary>
+        /// Operación que permite crear un nuevo Producto.
+        /// </summary>
+        /// <param name="addProductCommand">addProductCommand</param>
+        /// <returns></returns>
+        [HttpPost("InsertAsync")]
+        public async Task<IActionResult> InsertAsync([FromBody] AddProductCommand addProductCommand)
+        {
+            if (addProductCommand is null)
+                return BadRequest();
+
+            var response = await _mediator.Send(addProductCommand);
+            if (response.IsSuccess)
+                return Ok(response);
+            return BadRequest(response);
         }
 
     }

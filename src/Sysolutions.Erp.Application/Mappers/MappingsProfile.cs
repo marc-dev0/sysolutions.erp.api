@@ -10,6 +10,7 @@ using Sysolutions.Erp.Application.Services.Categories.Queries.GetCategoryByAll;
 using Sysolutions.Erp.Application.Services.Customers.Commands.AddCustomerCommand;
 using Sysolutions.Erp.Application.Services.Customers.Commands.UpdateCustomerCommand;
 using Sysolutions.Erp.Application.Services.Measures.Queries.GetMeasureByAll;
+using Sysolutions.Erp.Application.Services.Products.Commands.AddProductCommand;
 using Sysolutions.Erp.Application.Services.Products.Queries.GetProductByAll;
 using Sysolutions.Erp.Application.Services.Profiles.Queries.GetProfileByAll;
 using Sysolutions.Erp.Application.Services.Sales.Commands.AddSalesOrderCommand;
@@ -34,6 +35,7 @@ namespace Sysolutions.Erp.Application.Mappers
 
             //Products
             CreateMap<GetProductByAllResponse, Product>().ReverseMap();
+            CreateMap<Product, AddProductCommand>().ReverseMap();
 
             //Categories
             CreateMap<GetCategoryByAllResponse, Category>().ReverseMap();

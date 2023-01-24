@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.SqlServer.Server;
 using Sysolutions.Erp.Domain.Entities;
 using Sysolutions.Erp.Infrastructure.Persistences.Contexts;
 using Sysolutions.Erp.Infrastructure.Persistences.Interfaces;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Sysolutions.Erp.Infrastructure.Persistences.Repositories
 {
-    internal class ProductRepository : IProductRepository
+    public class ProductRepository : IProductRepository
     {
         private readonly IConnectionFactory _connectionFactory;
 
@@ -49,14 +50,64 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<bool> InsertAsync(Product product)
+        public async Task<bool> InsertAsync(Product request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var connection = _connectionFactory.GetConnection)
+                {
+                    var query = "dbo.ProductInsert";
+                    var parameters = new DynamicParameters();
+                    parameters.Add("ProductId", request.ProductId);
+                    parameters.Add("Description", request.Description);
+                    parameters.Add("Code", request.Code);
+                    parameters.Add("CategoryId", request.CategoryId);
+                    parameters.Add("SubCategoryId", request.SubCategoryId);
+                    parameters.Add("BrandId", request.BrandId);
+                    parameters.Add("State", request.State);
+                    parameters.Add("AccountId", request.RegistrationAccountId);
+                    parameters.Add("ProductPresentationList", GetTableValuedParameter(request.productPresentations));
+
+                    var result = await connection.ExecuteAsync(query, param: parameters, commandType: CommandType.StoredProcedure);
+                    return result > 0;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public Task<bool> UpdateAsync(Product product)
         {
             throw new NotImplementedException();
+        }
+
+        private static IEnumerable<SqlDataRecord> CreateSqlDataRecord(IEnumerable<ProductPresentation> productPresentations)
+        {
+            SqlMetaData[] columns = new SqlMetaData[6];
+            columns[0] = new SqlMetaData("Id", SqlDbType.Int);
+            columns[1] = new SqlMetaData("EquivalentQuantity", SqlDbType.Int);
+            columns[2] = new SqlMetaData("Price", SqlDbType.Decimal, 16, 6);
+            columns[3] = new SqlMetaData("BarCode", SqlDbType.VarChar, 15);
+            columns[4] = new SqlMetaData("MeasureFromId", SqlDbType.Int);
+            columns[5] = new SqlMetaData("MeasureToId", SqlDbType.Int);
+            var record = new SqlDataRecord(columns);
+            foreach (var item in productPresentations)
+            {
+                record.SetInt32(0, item.ProductPresentationId);
+                record.SetInt32(1, item.EquivalentQuantity);
+                record.SetDecimal(2, item.Price);
+                record.SetString(3, item.BarCode);
+                record.SetInt32(4, item.MeasureFromId);
+                record.SetInt32(5, item.MeasureToId);
+                yield return record;
+            }
+        }
+
+        private static SqlMapper.ICustomQueryParameter GetTableValuedParameter(IEnumerable<ProductPresentation> productPresentations)
+        {
+            return CreateSqlDataRecord(productPresentations).AsTableValuedParameter("ProductPresentationList");
         }
     }
 }

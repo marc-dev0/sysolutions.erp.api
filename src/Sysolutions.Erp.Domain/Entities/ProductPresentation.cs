@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sysolutions.Erp.Domain.Entities
+﻿namespace Sysolutions.Erp.Domain.Entities
 {
-    internal class ProductPresentation
+    public class ProductPresentation
     {
+        public int ProductPresentationId { get; set; }
+        public int EquivalentQuantity { get; set; }
+        public decimal Price { get; set; }
+        public string BarCode { get; set; }
+        public int MeasureFromId { get; set; }
+        public int MeasureToId { get; set; }
+        public int ProductId { get; set; } 
     }
 }
