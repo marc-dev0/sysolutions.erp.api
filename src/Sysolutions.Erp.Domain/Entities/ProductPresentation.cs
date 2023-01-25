@@ -8,6 +8,9 @@
         public string BarCode { get; set; }
         public int MeasureFromId { get; set; }
         public int MeasureToId { get; set; }
-        public int ProductId { get; set; } 
+        public int ProductId { get; set; }
+
+        public string EquivalentFrom { get; set; }
+        public string EquivalentTo { get; set; }
     }
 }

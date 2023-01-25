@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Sysolutions.Erp.Application.Services.Products.Queries.GetProductByAll
 {
@@ -14,5 +16,15 @@ namespace Sysolutions.Erp.Application.Services.Products.Queries.GetProductByAll
         public string StateDescription { get; set; }
         public string State { get; set; }
         public DateTime RegistrationDate { get; set; }
+        public List<GetProductPresentationByAllResponse> ProductPresentations { get; set; }
+    }
+
+    public class GetProductPresentationByAllResponse
+    {
+        public int ProductId { get; set; }
+        public decimal Price { get; set; }
+        public string BarCode { get; set; }
+        public string EquivalentFrom { get; set; }
+        public string EquivalentTo { get; set; }
     }
 }

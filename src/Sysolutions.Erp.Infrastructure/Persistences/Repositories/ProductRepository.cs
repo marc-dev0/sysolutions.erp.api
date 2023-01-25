@@ -35,7 +35,15 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Repositories
                     var query = "ProductGetAll";
                     var parameters = new DynamicParameters();
 
-                    var response = await connection.QueryAsync<Product>(query, param: parameters, commandType: CommandType.StoredProcedure);
+                    var reader = await connection.QueryMultipleAsync(query, param: parameters, commandType: CommandType.StoredProcedure);
+                    //var response = await connection.QueryAsync<Product>(query, param: parameters, commandType: CommandType.StoredProcedure);
+                    var response = reader.Read<Product>().ToList();
+                    var presentation = reader.Read<ProductPresentation>().ToList();
+
+                    response.ForEach(x => x.productPresentations = new List<ProductPresentation>());
+                    response.ForEach(x => x.productPresentations.AddRange(
+                        presentation.Where(y => y.ProductId == x.ProductId)
+                    ));
                     return response;
                 }
             }

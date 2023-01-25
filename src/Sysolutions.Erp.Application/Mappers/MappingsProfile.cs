@@ -35,6 +35,7 @@ namespace Sysolutions.Erp.Application.Mappers
 
             //Products
             CreateMap<GetProductByAllResponse, Product>().ReverseMap();
+            CreateMap<GetProductPresentationByAllResponse, ProductPresentation>().ReverseMap();
             CreateMap<Product, AddProductCommand>().ReverseMap();
 
             //Categories
