@@ -47,9 +47,29 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Repositories
                     return response;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
+            }
+        }
+
+        public async Task<IEnumerable<ProductPresentation>> GetPresentationsByProductId(int productId)
+        {
+            try
+            {
+                using (var connection = _connectionFactory.GetConnection)
+                {
+                    var query = "dbo.ProductPresentationGetByProductId";
+                    var parameters = new DynamicParameters();
+                    parameters.Add("ProductId", productId);
+
+                    var response = await connection.QueryAsync<ProductPresentation>(query, param: parameters, commandType: CommandType.StoredProcedure);
+                    return response;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 

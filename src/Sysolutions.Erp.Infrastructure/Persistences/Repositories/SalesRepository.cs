@@ -49,7 +49,7 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Repositories
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                throw ex;
+                throw;
             }
         }
 
@@ -84,8 +84,10 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Repositories
                                 parameters = new DynamicParameters();
                                 parameters.Add("Amount", item.Amount);
                                 parameters.Add("Price", item.Price);
+                                parameters.Add("MeasureDescription", item.MeasureDescription);
                                 parameters.Add("ProductId", item.ProductId);
                                 parameters.Add("SalesOrderId", item.SalesOrderId);
+                                parameters.Add("ProductPresentationId", item.ProductPresentationId);
                                 result += await connection.ExecuteAsync(query, param: parameters, transaction, commandType: CommandType.StoredProcedure);
                                 _logger.LogInformation("SalesOrder Detalle ingresado", item.ToString() + "ProductId:" + item.ProductId);
                                 if (result < 0)
@@ -104,7 +106,7 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Repositories
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                throw ex;
+                throw;
             }
         }
     }
