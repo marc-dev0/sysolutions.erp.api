@@ -36,5 +36,28 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Repositories
                 throw;
             }
         }
+
+        public async Task<bool> InsertAsync(Measure request)
+        {
+            try
+            {
+                using (var connection = _connectionFactory.GetConnection)
+                {
+                    var query = "dbo.MeasureInsert";
+                    var parameters = new DynamicParameters();
+                    parameters.Add("Description", request.Description);
+                    parameters.Add("ShortDescription", request.ShortDescription);
+                    parameters.Add("State", request.State);
+                    parameters.Add("RegistrationAccountId", request.RegistrationAccountId);
+
+                    var result = await connection.ExecuteAsync(query, param: parameters, commandType: CommandType.StoredProcedure);
+                    return result > 0;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

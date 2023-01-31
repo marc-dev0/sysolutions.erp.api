@@ -5,10 +5,13 @@ using Sysolutions.Erp.Application.Services.Accounts.Commands.AddTokenCommand;
 using Sysolutions.Erp.Application.Services.Accounts.Commands.UpdateAccountCommand;
 using Sysolutions.Erp.Application.Services.Accounts.Queries.GetAccountByAll;
 using Sysolutions.Erp.Application.Services.Accounts.Queries.GetAccountById;
+using Sysolutions.Erp.Application.Services.Brands.Commands;
 using Sysolutions.Erp.Application.Services.Brands.Queries.GetBrandByAllQuery;
+using Sysolutions.Erp.Application.Services.Categories.Commands;
 using Sysolutions.Erp.Application.Services.Categories.Queries.GetCategoryByAll;
 using Sysolutions.Erp.Application.Services.Customers.Commands.AddCustomerCommand;
 using Sysolutions.Erp.Application.Services.Customers.Commands.UpdateCustomerCommand;
+using Sysolutions.Erp.Application.Services.Measures.Commands.AddMeasureCommand;
 using Sysolutions.Erp.Application.Services.Measures.Queries.GetMeasureByAll;
 using Sysolutions.Erp.Application.Services.Products.Commands.AddProductCommand;
 using Sysolutions.Erp.Application.Services.Products.Queries.GetPresentationsByProductId;
@@ -16,6 +19,7 @@ using Sysolutions.Erp.Application.Services.Products.Queries.GetProductByAll;
 using Sysolutions.Erp.Application.Services.Profiles.Queries.GetProfileByAll;
 using Sysolutions.Erp.Application.Services.Sales.Commands.AddSalesOrderCommand;
 using Sysolutions.Erp.Application.Services.Sales.Queries.GetSalesOrderByAllQuery;
+using Sysolutions.Erp.Application.Services.SubCategories.Commands.AddSubCategoryCommand;
 using Sysolutions.Erp.Application.Services.SubCategories.Queries.GetSubCategoryByCategoryId;
 using Sysolutions.Erp.Domain.Entities;
 
@@ -42,12 +46,19 @@ namespace Sysolutions.Erp.Application.Mappers
 
             //Categories
             CreateMap<GetCategoryByAllResponse, Category>().ReverseMap();
+            CreateMap<Category, AddCategoryCommand>().ReverseMap();
+
             //SubCategories
             CreateMap<GetSubCategoryByCategoryIdResponse, SubCategory>().ReverseMap();
+            CreateMap<SubCategory, AddSubCategoryCommand>().ReverseMap();
+
             //Measures
             CreateMap<GetMeasureByAllResponse, Measure>().ReverseMap();
+            CreateMap<Measure, AddMeasureCommand>().ReverseMap();
             //Brands
             CreateMap<GetBrandByAllResponse, Brand>().ReverseMap();
+            CreateMap<Brand, AddBrandCommand>().ReverseMap();
+
             //Profiles
             CreateMap<GetProfileByAllResponse, Profiles>().ReverseMap();
 

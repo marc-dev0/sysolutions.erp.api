@@ -7,5 +7,6 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Interfaces
     public interface iCategoryRepository
     {
         Task<IEnumerable<Category>> GetAllAsync();
+        Task<bool> InsertAsync(Category request);
     }
 }

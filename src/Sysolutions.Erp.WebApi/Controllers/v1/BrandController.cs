@@ -6,6 +6,7 @@ using Sysolutions.Erp.Application.Commons;
 using System.Threading.Tasks;
 using System;
 using Sysolutions.Erp.Application.Services.Brands.Queries.GetBrandByAllQuery;
+using Sysolutions.Erp.Application.Services.Brands.Commands;
 
 namespace Sysolutions.Erp.WebApi.Controllers.v1
 {
@@ -34,6 +35,23 @@ namespace Sysolutions.Erp.WebApi.Controllers.v1
             {
                 return BadRequest(new { mensaje = ex.Message });
             }
+        }
+
+        /// <summary>
+        /// Operación que permite crear una nueva Marca
+        /// </summary>
+        /// <param name="addBrandCommand">addBrandCommand</param>
+        /// <returns></returns>
+        [HttpPost("InsertAsync")]
+        public async Task<IActionResult> InsertAsync([FromBody] AddBrandCommand command)
+        {
+            if (command is null)
+                return BadRequest();
+
+            var response = await _mediator.Send(command);
+            if (response.IsSuccess)
+                return Ok(response);
+            return BadRequest(response);
         }
     }
 }

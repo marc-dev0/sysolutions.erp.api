@@ -7,5 +7,6 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Interfaces
     public interface IMeasureRepository
     {
         Task<IEnumerable<Measure>> GetAllAsync();
+        Task<bool> InsertAsync(Measure request);
     }
 }

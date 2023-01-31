@@ -9,6 +9,8 @@ using Sysolutions.Erp.Application.Services.SubCategories.Queries.GetSubCategoryB
 using Sysolutions.Erp.Application.Services.Accounts.Queries.GetAccountById;
 using Sysolutions.Erp.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Sysolutions.Erp.Application.Services.Categories.Commands;
+using Sysolutions.Erp.Application.Services.SubCategories.Commands.AddSubCategoryCommand;
 
 namespace Sysolutions.Erp.WebApi.Controllers.v1
 {
@@ -38,6 +40,23 @@ namespace Sysolutions.Erp.WebApi.Controllers.v1
             {
                 return BadRequest(new { mensaje = ex.Message });
             }
+        }
+
+        /// <summary>
+        /// Operación que permite crear una nueva SubCategoría
+        /// </summary>
+        /// <param name="addSubCategoryCommand">addSubCategoryCommand</param>
+        /// <returns></returns>
+        [HttpPost("InsertAsync")]
+        public async Task<IActionResult> InsertAsync([FromBody] AddSubCategoryCommand command)
+        {
+            if (command is null)
+                return BadRequest();
+
+            var response = await _mediator.Send(command);
+            if (response.IsSuccess)
+                return Ok(response);
+            return BadRequest(response);
         }
     }
 }

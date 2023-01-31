@@ -7,5 +7,6 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Interfaces
     public interface IBrandRepository
     {
         Task<IEnumerable<Brand>> GetAllAsync();
+        Task<bool> InsertAsync(Brand request);
     }
 }
