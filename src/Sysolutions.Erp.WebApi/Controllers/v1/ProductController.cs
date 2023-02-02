@@ -9,6 +9,8 @@ using Sysolutions.Erp.Application.Services.Products.Queries.GetProductByAll;
 using Sysolutions.Erp.Application.Services.Accounts.Commands.AddAccountCommand;
 using Sysolutions.Erp.Application.Services.Products.Commands.AddProductCommand;
 using Sysolutions.Erp.Application.Services.Products.Queries.GetPresentationsByProductId;
+using Sysolutions.Erp.Application.Services.Products.Commands.DeleteProductCommand;
+using Sysolutions.Erp.Application.Services.Products.Queries.GetProductByIdQuery;
 
 namespace Sysolutions.Erp.WebApi.Controllers.v1
 {
@@ -54,6 +56,21 @@ namespace Sysolutions.Erp.WebApi.Controllers.v1
             }
         }
 
+        [ProducesResponseType(typeof(Response<GetProductByIdResponse>), StatusCodes.Status200OK)]
+        [HttpGet("GetProductByIdAsync")]
+        public async Task<IActionResult> GetProductByIdAsync(int productId)
+        {
+            try
+            {
+                var response = await _mediator.Send(new GetProductByIdQuery() { ProductId = productId });
+                return response.IsSuccess ? Ok(response) : BadRequest(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { mensaje = ex.Message });
+            }
+        }
+
         /// <summary>
         /// Operación que permite crear un nuevo Producto.
         /// </summary>
@@ -71,5 +88,23 @@ namespace Sysolutions.Erp.WebApi.Controllers.v1
             return BadRequest(response);
         }
 
+        /// <summary>
+        /// Operación que permite crear un nuevo Producto.
+        /// </summary>
+        /// <param name="deleteProductCommand">deleteProductCommand</param>
+        /// <returns></returns>
+        [HttpDelete("DeleteAsync")]
+        public async Task<IActionResult> DeleteAsync(int productId, int modifiedAccountId)
+        {
+            try
+            {
+                var response = await _mediator.Send(new DeleteProductCommand() { ProductId = productId, ModifiedAccountId = modifiedAccountId });
+                return response.IsSuccess ? Ok(response) : BadRequest(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { mensaje = ex.Message });
+            }
+        }
     }
 }

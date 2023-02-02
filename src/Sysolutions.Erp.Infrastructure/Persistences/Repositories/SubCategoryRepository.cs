@@ -18,6 +18,25 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Repositories
             _connectionFactory = connectionFactory;
         }
 
+        public async Task<IEnumerable<SubCategory>> GetAllAsync()
+        {
+            try
+            {
+                using (var connection = _connectionFactory.GetConnection)
+                {
+                    var query = "SubCategoryGetAll";
+                    var parameters = new DynamicParameters();
+
+                    var response = await connection.QueryAsync<SubCategory>(query, param: parameters, commandType: CommandType.StoredProcedure);
+                    return response;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public async Task<IEnumerable<SubCategory>> GetByCategoryIdAsync(int categoryId)
         {
             using (var connection = _connectionFactory.GetConnection)

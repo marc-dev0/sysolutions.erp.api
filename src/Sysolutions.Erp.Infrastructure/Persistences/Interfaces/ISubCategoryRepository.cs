@@ -6,6 +6,7 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Interfaces
 {
     public interface ISubCategoryRepository
     {
+        Task<IEnumerable<SubCategory>> GetAllAsync();
         Task<IEnumerable<SubCategory>> GetByCategoryIdAsync(int categoryId);
         Task<bool> InsertAsync(SubCategory request);
     }

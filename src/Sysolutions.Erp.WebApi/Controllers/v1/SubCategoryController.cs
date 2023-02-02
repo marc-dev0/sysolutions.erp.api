@@ -2,15 +2,11 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sysolutions.Erp.Application.Commons;
-using Sysolutions.Erp.Application.Services.Categories.Queries.GetCategoryByAll;
 using System.Threading.Tasks;
 using System;
 using Sysolutions.Erp.Application.Services.SubCategories.Queries.GetSubCategoryByCategoryId;
-using Sysolutions.Erp.Application.Services.Accounts.Queries.GetAccountById;
-using Sysolutions.Erp.Domain.Entities;
-using Microsoft.AspNetCore.Authorization;
-using Sysolutions.Erp.Application.Services.Categories.Commands;
 using Sysolutions.Erp.Application.Services.SubCategories.Commands.AddSubCategoryCommand;
+using Sysolutions.Erp.Application.Services.SubCategories.Queries.GetSubCategoryByAllQuery;
 
 namespace Sysolutions.Erp.WebApi.Controllers.v1
 {
@@ -26,6 +22,20 @@ namespace Sysolutions.Erp.WebApi.Controllers.v1
             _mediator = mediator;
         }
 
+        [ProducesResponseType(typeof(Response<GetSubCategoryByAllResponse>), StatusCodes.Status200OK)]
+        [HttpGet("GetAllAsync")]
+        public async Task<IActionResult> GetAllAsync([FromQuery] GetSubCategoryByAllQuery query)
+        {
+            try
+            {
+                var response = await _mediator.Send(query);
+                return response.IsSuccess ? Ok(response) : BadRequest(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { mensaje = ex.Message });
+            }
+        }
 
         [ProducesResponseType(typeof(Response<GetSubCategoryByCategoryIdResponse>), StatusCodes.Status200OK)]
         [HttpGet("GetByCategoryIdAsync")]

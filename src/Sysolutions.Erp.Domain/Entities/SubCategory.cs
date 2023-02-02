@@ -11,5 +11,7 @@ namespace Sysolutions.Erp.Domain.Entities
         public string StateDescription { get; set; }
         public DateTime RegistrationDate { get; set; }
         public int RegistrationAccountId { get; set; }
+
+        public string CategoryDescription { get; set; }
     }
 }

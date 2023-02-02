@@ -21,9 +21,25 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Repositories
             _connectionFactory = connectionFactory;
         }
 
-        public Task<bool> DeleteAsync(int productId, int modifiedAccountId)
+        public async Task<bool> DeleteAsync(int productId, int modifiedAccountId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var connection = _connectionFactory.GetConnection)
+                {
+                    var query = "dbo.ProductDelete";
+                    var parameters = new DynamicParameters();
+                    parameters.Add("ProductId", productId);
+                    parameters.Add("ModifiedAccountId", modifiedAccountId);
+
+                    var result = await connection.ExecuteAsync(query, param: parameters, commandType: CommandType.StoredProcedure);
+                    return result > 0;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public async Task<IEnumerable<Product>> GetAllAsync()
@@ -73,9 +89,23 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Repositories
             }
         }
 
-        public Task<Product> GetByIdAsync(int productId)
+        public async Task<Product> GetByIdAsync(int productId)
         {
-            throw new NotImplementedException();
+            using (var connection = _connectionFactory.GetConnection)
+            {
+                var query = "dbo.ProductGetById";
+                var parameters = new DynamicParameters();
+                parameters.Add("ProductId", productId);
+
+
+                var reader = await connection.QueryMultipleAsync(query, param: parameters, commandType: CommandType.StoredProcedure);
+                var response = reader.ReadFirst<Product>();
+                var presentation = reader.Read<ProductPresentation>().ToList();
+
+                response.productPresentations = new List<ProductPresentation>();
+                response.productPresentations.AddRange(presentation);
+                return response;
+            }
         }
 
         public async Task<bool> InsertAsync(Product request)

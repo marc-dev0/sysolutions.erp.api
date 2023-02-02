@@ -14,12 +14,15 @@ using Sysolutions.Erp.Application.Services.Customers.Commands.UpdateCustomerComm
 using Sysolutions.Erp.Application.Services.Measures.Commands.AddMeasureCommand;
 using Sysolutions.Erp.Application.Services.Measures.Queries.GetMeasureByAll;
 using Sysolutions.Erp.Application.Services.Products.Commands.AddProductCommand;
+using Sysolutions.Erp.Application.Services.Products.Commands.DeleteProductCommand;
 using Sysolutions.Erp.Application.Services.Products.Queries.GetPresentationsByProductId;
 using Sysolutions.Erp.Application.Services.Products.Queries.GetProductByAll;
+using Sysolutions.Erp.Application.Services.Products.Queries.GetProductByIdQuery;
 using Sysolutions.Erp.Application.Services.Profiles.Queries.GetProfileByAll;
 using Sysolutions.Erp.Application.Services.Sales.Commands.AddSalesOrderCommand;
 using Sysolutions.Erp.Application.Services.Sales.Queries.GetSalesOrderByAllQuery;
 using Sysolutions.Erp.Application.Services.SubCategories.Commands.AddSubCategoryCommand;
+using Sysolutions.Erp.Application.Services.SubCategories.Queries.GetSubCategoryByAllQuery;
 using Sysolutions.Erp.Application.Services.SubCategories.Queries.GetSubCategoryByCategoryId;
 using Sysolutions.Erp.Domain.Entities;
 
@@ -42,13 +45,18 @@ namespace Sysolutions.Erp.Application.Mappers
             CreateMap<GetProductByAllResponse, Product>().ReverseMap();
             CreateMap<GetProductPresentationByAllResponse, ProductPresentation>().ReverseMap();
             CreateMap<GetPresentationsByProductIdResponse, ProductPresentation>().ReverseMap();
+            CreateMap<GetProdutPresentationByIdResponse, ProductPresentation>().ReverseMap();
+            CreateMap<GetProductByIdResponse, Product>().ReverseMap();
+
             CreateMap<Product, AddProductCommand>().ReverseMap();
+            CreateMap<Product, DeleteProductCommand>().ReverseMap();
 
             //Categories
             CreateMap<GetCategoryByAllResponse, Category>().ReverseMap();
             CreateMap<Category, AddCategoryCommand>().ReverseMap();
 
             //SubCategories
+            CreateMap<GetSubCategoryByAllResponse, SubCategory>().ReverseMap();
             CreateMap<GetSubCategoryByCategoryIdResponse, SubCategory>().ReverseMap();
             CreateMap<SubCategory, AddSubCategoryCommand>().ReverseMap();
 
