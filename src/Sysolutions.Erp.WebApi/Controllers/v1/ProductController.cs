@@ -11,6 +11,7 @@ using Sysolutions.Erp.Application.Services.Products.Commands.AddProductCommand;
 using Sysolutions.Erp.Application.Services.Products.Queries.GetPresentationsByProductId;
 using Sysolutions.Erp.Application.Services.Products.Commands.DeleteProductCommand;
 using Sysolutions.Erp.Application.Services.Products.Queries.GetProductByIdQuery;
+using Sysolutions.Erp.Application.Services.Products.Commands.UpdateProductCommand;
 
 namespace Sysolutions.Erp.WebApi.Controllers.v1
 {
@@ -100,6 +101,31 @@ namespace Sysolutions.Erp.WebApi.Controllers.v1
             {
                 var response = await _mediator.Send(new DeleteProductCommand() { ProductId = productId, ModifiedAccountId = modifiedAccountId });
                 return response.IsSuccess ? Ok(response) : BadRequest(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { mensaje = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Operación que permite crear un nuevo Producto.
+        /// </summary>
+        /// <param name="addProductCommand">addProductCommand</param>
+        /// <returns></returns>
+        [HttpPut("UpdateAsync")]
+        public async Task<IActionResult> InsertAsync([FromBody] UpdateProductCommand command)
+        {
+            if (command is null)
+                return BadRequest();
+
+            try
+            {
+                var response = await _mediator.Send(command);
+                if (response.IsSuccess)
+                    return Ok(response);
+                else
+                    return BadRequest(response);
             }
             catch (Exception ex)
             {

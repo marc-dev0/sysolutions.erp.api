@@ -15,6 +15,7 @@ using Sysolutions.Erp.Application.Services.Measures.Commands.AddMeasureCommand;
 using Sysolutions.Erp.Application.Services.Measures.Queries.GetMeasureByAll;
 using Sysolutions.Erp.Application.Services.Products.Commands.AddProductCommand;
 using Sysolutions.Erp.Application.Services.Products.Commands.DeleteProductCommand;
+using Sysolutions.Erp.Application.Services.Products.Commands.UpdateProductCommand;
 using Sysolutions.Erp.Application.Services.Products.Queries.GetPresentationsByProductId;
 using Sysolutions.Erp.Application.Services.Products.Queries.GetProductByAll;
 using Sysolutions.Erp.Application.Services.Products.Queries.GetProductByIdQuery;
@@ -50,6 +51,7 @@ namespace Sysolutions.Erp.Application.Mappers
 
             CreateMap<Product, AddProductCommand>().ReverseMap();
             CreateMap<Product, DeleteProductCommand>().ReverseMap();
+            CreateMap<Product, UpdateProductCommand>().ReverseMap();
 
             //Categories
             CreateMap<GetCategoryByAllResponse, Category>().ReverseMap();

@@ -3,13 +3,16 @@ using MediatR;
 using Sysolutions.Erp.Application.Commons;
 using Sysolutions.Erp.Domain.Entities;
 using Sysolutions.Erp.Infrastructure.Persistences.Interfaces;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System;
-namespace Sysolutions.Erp.Application.Services.Products.Commands.AddProductCommand
+
+namespace Sysolutions.Erp.Application.Services.Products.Commands.UpdateProductCommand
 {
-    public class AddProductCommand : IRequest<Response<bool>>
+    public class UpdateProductCommand : IRequest<Response<bool>>
     {
         public int ProductId { get; set; }
         public string Description { get; set; }
@@ -18,22 +21,22 @@ namespace Sysolutions.Erp.Application.Services.Products.Commands.AddProductComma
         public int SubCategoryId { get; set; }
         public int BrandId { get; set; }
         public string State { get; set; }
-        public int RegistrationAccountId { get; set; }
+        public int ModifiedAccountId { get; set; }
         public IEnumerable<ProductPresentation> ProductPresentations { get; set; }
     }
 
-    public class AddProductHandler : IRequestHandler<AddProductCommand, Response<bool>>
+    public class UpdateProductHandler : IRequestHandler<UpdateProductCommand, Response<bool>>
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
 
-        public AddProductHandler(IProductRepository productRepository, IMapper mapper)
+        public UpdateProductHandler(IProductRepository productRepository, IMapper mapper)
         {
             _productRepository = productRepository;
             _mapper = mapper;
         }
 
-        public async Task<Response<bool>> Handle(AddProductCommand request, CancellationToken cancellationToken)
+        public async Task<Response<bool>> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
         {
             var response = new Response<bool>();
 
@@ -41,16 +44,16 @@ namespace Sysolutions.Erp.Application.Services.Products.Commands.AddProductComma
             {
                 var product = _mapper.Map<Product>(request);
 
-                response.Data = await _productRepository.InsertAsync(product);
+                response.Data = await _productRepository.UpdateAsync(product);
 
                 if (response.Data)
                 {
                     response.IsSuccess = true;
-                    response.Message = "Registro Exitoso.";
+                    response.Message = "Actualización Exitoso.";
                 }
                 else
                 {
-                    response.Message = "Registro Fallido.";
+                    response.Message = "Actualización Fallida.";
                 }
             }
             catch (Exception)

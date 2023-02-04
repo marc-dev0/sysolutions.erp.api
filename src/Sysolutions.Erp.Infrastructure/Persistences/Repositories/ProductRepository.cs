@@ -114,7 +114,7 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Repositories
             {
                 using (var connection = _connectionFactory.GetConnection)
                 {
-                    var query = "dbo.ProductInsert";
+                    var query = "dbo.ProductInsertUpdate";
                     var parameters = new DynamicParameters();
                     parameters.Add("ProductId", request.ProductId);
                     parameters.Add("Description", request.Description);
@@ -136,9 +136,32 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Repositories
             }
         }
 
-        public Task<bool> UpdateAsync(Product product)
+        public async Task<bool> UpdateAsync(Product request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var connection = _connectionFactory.GetConnection)
+                {
+                    var query = "dbo.ProductInsertUpdate";
+                    var parameters = new DynamicParameters();
+                    parameters.Add("ProductId", request.ProductId);
+                    parameters.Add("Description", request.Description);
+                    parameters.Add("Code", request.Code);
+                    parameters.Add("CategoryId", request.CategoryId);
+                    parameters.Add("SubCategoryId", request.SubCategoryId);
+                    parameters.Add("BrandId", request.BrandId);
+                    parameters.Add("State", request.State);
+                    parameters.Add("AccountId", request.RegistrationAccountId);
+                    parameters.Add("ProductPresentationList", GetTableValuedParameter(request.productPresentations));
+
+                    var result = await connection.ExecuteAsync(query, param: parameters, commandType: CommandType.StoredProcedure);
+                    return result > 0;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         private static IEnumerable<SqlDataRecord> CreateSqlDataRecord(IEnumerable<ProductPresentation> productPresentations)
