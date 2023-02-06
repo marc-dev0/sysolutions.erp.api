@@ -22,6 +22,9 @@ using Sysolutions.Erp.Application.Services.Products.Queries.GetProductByIdQuery;
 using Sysolutions.Erp.Application.Services.Profiles.Queries.GetProfileByAll;
 using Sysolutions.Erp.Application.Services.Sales.Commands.AddSalesOrderCommand;
 using Sysolutions.Erp.Application.Services.Sales.Queries.GetSalesOrderByAllQuery;
+using Sysolutions.Erp.Application.Services.Storages.Commands;
+using Sysolutions.Erp.Application.Services.Storages.Queries.GetStorageByAllQuery;
+using Sysolutions.Erp.Application.Services.Storages.Queries.GetStorageProductByStorageIdQuery;
 using Sysolutions.Erp.Application.Services.SubCategories.Commands.AddSubCategoryCommand;
 using Sysolutions.Erp.Application.Services.SubCategories.Queries.GetSubCategoryByAllQuery;
 using Sysolutions.Erp.Application.Services.SubCategories.Queries.GetSubCategoryByCategoryId;
@@ -68,6 +71,11 @@ namespace Sysolutions.Erp.Application.Mappers
             //Brands
             CreateMap<GetBrandByAllResponse, Brand>().ReverseMap();
             CreateMap<Brand, AddBrandCommand>().ReverseMap();
+
+            //Storages
+            CreateMap<GetStorageByAllResponse, Storage>().ReverseMap();
+            CreateMap<Storage, AddStorageCommand>().ReverseMap();
+            CreateMap<GetStorageProductByStorageIdResponse, StorageProduct>().ReverseMap();
 
             //Profiles
             CreateMap<GetProfileByAllResponse, Profiles>().ReverseMap();
