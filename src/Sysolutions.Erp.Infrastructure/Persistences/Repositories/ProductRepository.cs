@@ -93,6 +93,7 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Repositories
         {
             using (var connection = _connectionFactory.GetConnection)
             {
+                connection.Open();
                 var query = "dbo.ProductGetById";
                 var parameters = new DynamicParameters();
                 parameters.Add("ProductId", productId);
@@ -166,13 +167,14 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Repositories
 
         private static IEnumerable<SqlDataRecord> CreateSqlDataRecord(IEnumerable<ProductPresentation> productPresentations)
         {
-            SqlMetaData[] columns = new SqlMetaData[6];
+            SqlMetaData[] columns = new SqlMetaData[7];
             columns[0] = new SqlMetaData("Id", SqlDbType.Int);
             columns[1] = new SqlMetaData("EquivalentQuantity", SqlDbType.Int);
             columns[2] = new SqlMetaData("Price", SqlDbType.Decimal, 16, 6);
             columns[3] = new SqlMetaData("BarCode", SqlDbType.VarChar, 15);
-            columns[4] = new SqlMetaData("MeasureFromId", SqlDbType.Int);
-            columns[5] = new SqlMetaData("MeasureToId", SqlDbType.Int);
+            columns[4] = new SqlMetaData("Hierarchy", SqlDbType.Int);
+            columns[5] = new SqlMetaData("MeasureFromId", SqlDbType.Int);
+            columns[6] = new SqlMetaData("MeasureToId", SqlDbType.Int);
             var record = new SqlDataRecord(columns);
             foreach (var item in productPresentations)
             {
@@ -180,8 +182,9 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Repositories
                 record.SetInt32(1, item.EquivalentQuantity);
                 record.SetDecimal(2, item.Price);
                 record.SetString(3, item.BarCode);
-                record.SetInt32(4, item.MeasureFromId);
-                record.SetInt32(5, item.MeasureToId);
+                record.SetInt32(4, item.Hierarchy);
+                record.SetInt32(5, item.MeasureFromId);
+                record.SetInt32(6, item.MeasureToId);
                 yield return record;
             }
         }

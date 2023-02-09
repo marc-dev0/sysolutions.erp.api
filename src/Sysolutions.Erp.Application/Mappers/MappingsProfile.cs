@@ -11,6 +11,7 @@ using Sysolutions.Erp.Application.Services.Categories.Commands;
 using Sysolutions.Erp.Application.Services.Categories.Queries.GetCategoryByAll;
 using Sysolutions.Erp.Application.Services.Customers.Commands.AddCustomerCommand;
 using Sysolutions.Erp.Application.Services.Customers.Commands.UpdateCustomerCommand;
+using Sysolutions.Erp.Application.Services.EntryNotes.Commands.AddEntryNoteCommand;
 using Sysolutions.Erp.Application.Services.Measures.Commands.AddMeasureCommand;
 using Sysolutions.Erp.Application.Services.Measures.Queries.GetMeasureByAll;
 using Sysolutions.Erp.Application.Services.Products.Commands.AddProductCommand;
@@ -76,6 +77,9 @@ namespace Sysolutions.Erp.Application.Mappers
             CreateMap<GetStorageByAllResponse, Storage>().ReverseMap();
             CreateMap<Storage, AddStorageCommand>().ReverseMap();
             CreateMap<GetStorageProductByStorageIdResponse, StorageProduct>().ReverseMap();
+
+            //EntryNotes
+            CreateMap<EntryNote, AddEntryNoteCommand>().ReverseMap();
 
             //Profiles
             CreateMap<GetProfileByAllResponse, Profiles>().ReverseMap();

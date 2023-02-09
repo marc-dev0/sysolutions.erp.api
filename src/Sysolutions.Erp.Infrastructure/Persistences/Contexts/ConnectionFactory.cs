@@ -23,8 +23,8 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Contexts
                 try
                 {
                     sqlConnection.ConnectionString = _configuration.GetConnectionString("CRMConnection");
-                    if (sqlConnection.State == ConnectionState.Closed)
-                    sqlConnection.Open();
+                    //if (sqlConnection.State == ConnectionState.Closed)
+                    //sqlConnection.Open();
                     return sqlConnection;
                 }
                 catch (System.Exception)
