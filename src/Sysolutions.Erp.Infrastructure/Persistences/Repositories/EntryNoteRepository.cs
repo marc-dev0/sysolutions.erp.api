@@ -32,7 +32,7 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Repositories
                     parameters.Add("State", request.State);
                     parameters.Add("CostPriceTotal", request.CostPriceTotal);
                     parameters.Add("RegistrationAccountId", request.RegistrationAccountId);
-                    parameters.Add("ProductPresentationList", GetTableValuedParameter(request.EntryDetails));
+                    parameters.Add("EntryNoteList", GetTableValuedParameter(request.EntryDetails));
 
                     var result = await connection.ExecuteAsync(query, param: parameters, commandType: CommandType.StoredProcedure);
                     return result > 0;
@@ -50,7 +50,8 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Repositories
             columns[0] = new SqlMetaData("Id", SqlDbType.Int);
             columns[1] = new SqlMetaData("Quantity", SqlDbType.Int);
             columns[2] = new SqlMetaData("CostPrice", SqlDbType.Decimal, 16, 6);
-            columns[4] = new SqlMetaData("ProductId", SqlDbType.Int);
+            columns[3] = new SqlMetaData("ProductId", SqlDbType.Int);
+            columns[4] = new SqlMetaData("EntryNoteId", SqlDbType.Int);
             columns[5] = new SqlMetaData("ProductPresentationId", SqlDbType.Int);
             var record = new SqlDataRecord(columns);
             foreach (var item in entryNoteDetails)
@@ -59,7 +60,8 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Repositories
                 record.SetInt32(1, item.Quantity);
                 record.SetDecimal(2, item.CostPrice);
                 record.SetInt32(3, item.ProductId);
-                record.SetInt32(4, item.ProductPresentationId);
+                record.SetInt32(4, item.EntryNoteId);
+                record.SetInt32(5, item.ProductPresentationId);
                 yield return record;
             }
         }

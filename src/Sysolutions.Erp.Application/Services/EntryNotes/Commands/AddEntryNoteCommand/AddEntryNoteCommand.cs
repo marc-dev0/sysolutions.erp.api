@@ -15,7 +15,7 @@ namespace Sysolutions.Erp.Application.Services.EntryNotes.Commands.AddEntryNoteC
         public int EntryNoteId { get; set; }
         public string Correlative { get; set; }
         public string State { get; set; }
-        public int RegistrationAccuntId { get; set; }
+        public int RegistrationAccountId { get; set; }
         public IEnumerable<EntryNoteDetail> EntryDetails { get; set; }
     }
 
