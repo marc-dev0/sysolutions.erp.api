@@ -12,6 +12,7 @@ using Sysolutions.Erp.Application.Services.Categories.Queries.GetCategoryByAll;
 using Sysolutions.Erp.Application.Services.Customers.Commands.AddCustomerCommand;
 using Sysolutions.Erp.Application.Services.Customers.Commands.UpdateCustomerCommand;
 using Sysolutions.Erp.Application.Services.EntryNotes.Commands.AddEntryNoteCommand;
+using Sysolutions.Erp.Application.Services.EntryNotes.Queries.GetEntryNotesByAllQuery;
 using Sysolutions.Erp.Application.Services.Measures.Commands.AddMeasureCommand;
 using Sysolutions.Erp.Application.Services.Measures.Queries.GetMeasureByAll;
 using Sysolutions.Erp.Application.Services.Products.Commands.AddProductCommand;
@@ -80,7 +81,11 @@ namespace Sysolutions.Erp.Application.Mappers
 
             //EntryNotes
             CreateMap<EntryNote, AddEntryNoteCommand>().ReverseMap();
+            CreateMap<GetBaseEntryNoteByAllResponse, BaseEntryNote>().ReverseMap();
+            CreateMap<GetEntryNotesByAll, EntryNote>().ReverseMap()
+                .ForMember(destination => destination.Details, source => source.MapFrom(src => src.EntryDetails));
 
+            CreateMap<GetEntryNotesDetailByAll, EntryNoteDetail>().ReverseMap();
             //Profiles
             CreateMap<GetProfileByAllResponse, Profiles>().ReverseMap();
 

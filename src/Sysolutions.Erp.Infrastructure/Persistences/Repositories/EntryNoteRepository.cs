@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Logging;
 using Microsoft.SqlServer.Server;
 using Sysolutions.Erp.Domain.Entities;
 using Sysolutions.Erp.Infrastructure.Persistences.Contexts;
@@ -13,10 +14,39 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Repositories
     public class EntryNoteRepository : IEntryNoteRepository
     {
         private readonly IConnectionFactory _connectionFactory;
-
-        public EntryNoteRepository(IConnectionFactory connectionFactory)
+        private readonly ILogger<EntryNoteRepository> _logger;
+        public EntryNoteRepository(IConnectionFactory connectionFactory, ILogger<EntryNoteRepository> logger)
         {
             _connectionFactory = connectionFactory;
+            _logger = logger;
+        }
+
+        public async Task<BaseEntryNote> GetAllAsync()
+        {
+            var response = new BaseEntryNote();
+            try
+            {
+                using (var connection = _connectionFactory.GetConnection)
+                {
+                    var query = "dbo.EntryNoteGetaAll";
+                    var parameters = new DynamicParameters();
+                    response.EntryNotes = await connection.QueryAsync<EntryNote>(query, param: parameters, commandType: CommandType.StoredProcedure);
+
+                    foreach (var item in response.EntryNotes)
+                    {
+                        query = "dbo.EntryNoteDetailGetAll";
+                        parameters = new DynamicParameters();
+                        parameters.Add("EntryNoteId", item.EntryNoteId);
+                        item.EntryDetails = await connection.QueryAsync<EntryNoteDetail>(query, param: parameters, commandType: CommandType.StoredProcedure);
+                    }
+                    return response;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw;
+            }
         }
 
         public async Task<bool> InsertAsync(EntryNote request)

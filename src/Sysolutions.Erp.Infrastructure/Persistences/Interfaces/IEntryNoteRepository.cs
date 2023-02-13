@@ -5,6 +5,7 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Interfaces
 {
     public interface IEntryNoteRepository
     {
+        Task<BaseEntryNote> GetAllAsync();
         Task<bool> InsertAsync(EntryNote request);
     }
 }

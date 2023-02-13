@@ -6,9 +6,11 @@ namespace Sysolutions.Erp.Domain.Entities
     {
         public int EntryNoteId { get; set; }
         public string Correlative { get; set; }
+        public string StateDescription { get; set; }
         public string State { get; set; }
         public decimal CostPriceTotal { get; set; }
         public int RegistrationAccountId { get; set; }
+        public string RegisteredUser { get; set; }
         public IEnumerable<EntryNoteDetail> EntryDetails { get; set; }
     }
 }

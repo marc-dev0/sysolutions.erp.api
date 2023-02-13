@@ -23,8 +23,4 @@
     <ProjectReference Include="..\Sysolutions.Erp.Infrastructure\Sysolutions.Erp.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\EntryNotes\Queries\" />
-  </ItemGroup>
-
 </Project>

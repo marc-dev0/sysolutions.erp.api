@@ -16,6 +16,7 @@ namespace Sysolutions.Erp.Application.Services.EntryNotes.Commands.AddEntryNoteC
         public string Correlative { get; set; }
         public string State { get; set; }
         public int RegistrationAccountId { get; set; }
+        public decimal CostPriceTotal { get; set; }
         public IEnumerable<EntryNoteDetail> EntryDetails { get; set; }
     }
 
