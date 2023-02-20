@@ -22,5 +22,4 @@
     <ProjectReference Include="..\Sysolutions.Erp.Domain\Sysolutions.Erp.Domain.csproj" />
     <ProjectReference Include="..\Sysolutions.Erp.Infrastructure\Sysolutions.Erp.Infrastructure.csproj" />
   </ItemGroup>
-
 </Project>

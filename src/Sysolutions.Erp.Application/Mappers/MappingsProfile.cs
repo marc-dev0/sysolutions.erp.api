@@ -46,7 +46,7 @@ namespace Sysolutions.Erp.Application.Mappers
               .ForMember(destination => destination.State, source => source.MapFrom(src => src.StateCode));
             CreateMap<AddTokenResponse, Account>().ReverseMap();
             CreateMap<AccountDto, Account>().ReverseMap();
-
+            
             //Products
             CreateMap<GetProductByAllResponse, Product>().ReverseMap();
             CreateMap<GetProductPresentationByAllResponse, ProductPresentation>().ReverseMap();
