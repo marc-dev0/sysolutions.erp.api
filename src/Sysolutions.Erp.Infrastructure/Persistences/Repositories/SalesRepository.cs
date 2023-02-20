@@ -61,6 +61,7 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Repositories
             {
                 using (var connection = _connectionFactory.GetConnection)
                 {
+                    connection.Open();
                     using (var transaction = connection.BeginTransaction())
                     {
                         

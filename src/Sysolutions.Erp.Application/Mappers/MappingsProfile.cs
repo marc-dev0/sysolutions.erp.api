@@ -11,6 +11,8 @@ using Sysolutions.Erp.Application.Services.Categories.Commands;
 using Sysolutions.Erp.Application.Services.Categories.Queries.GetCategoryByAll;
 using Sysolutions.Erp.Application.Services.Customers.Commands.AddCustomerCommand;
 using Sysolutions.Erp.Application.Services.Customers.Commands.UpdateCustomerCommand;
+using Sysolutions.Erp.Application.Services.EntryNotes.Commands.AddEntryNoteCommand;
+using Sysolutions.Erp.Application.Services.EntryNotes.Queries.GetEntryNotesByAllQuery;
 using Sysolutions.Erp.Application.Services.Measures.Commands.AddMeasureCommand;
 using Sysolutions.Erp.Application.Services.Measures.Queries.GetMeasureByAll;
 using Sysolutions.Erp.Application.Services.Products.Commands.AddProductCommand;
@@ -22,6 +24,9 @@ using Sysolutions.Erp.Application.Services.Products.Queries.GetProductByIdQuery;
 using Sysolutions.Erp.Application.Services.Profiles.Queries.GetProfileByAll;
 using Sysolutions.Erp.Application.Services.Sales.Commands.AddSalesOrderCommand;
 using Sysolutions.Erp.Application.Services.Sales.Queries.GetSalesOrderByAllQuery;
+using Sysolutions.Erp.Application.Services.Storages.Commands;
+using Sysolutions.Erp.Application.Services.Storages.Queries.GetStorageByAllQuery;
+using Sysolutions.Erp.Application.Services.Storages.Queries.GetStorageProductByStorageIdQuery;
 using Sysolutions.Erp.Application.Services.SubCategories.Commands.AddSubCategoryCommand;
 using Sysolutions.Erp.Application.Services.SubCategories.Queries.GetSubCategoryByAllQuery;
 using Sysolutions.Erp.Application.Services.SubCategories.Queries.GetSubCategoryByCategoryId;
@@ -69,6 +74,18 @@ namespace Sysolutions.Erp.Application.Mappers
             CreateMap<GetBrandByAllResponse, Brand>().ReverseMap();
             CreateMap<Brand, AddBrandCommand>().ReverseMap();
 
+            //Storages
+            CreateMap<GetStorageByAllResponse, Storage>().ReverseMap();
+            CreateMap<Storage, AddStorageCommand>().ReverseMap();
+            CreateMap<GetStorageProductByStorageIdResponse, StorageProduct>().ReverseMap();
+
+            //EntryNotes
+            CreateMap<EntryNote, AddEntryNoteCommand>().ReverseMap();
+            CreateMap<GetBaseEntryNoteByAllResponse, BaseEntryNote>().ReverseMap();
+            CreateMap<GetEntryNotesByAll, EntryNote>().ReverseMap()
+                .ForMember(destination => destination.Details, source => source.MapFrom(src => src.EntryDetails));
+
+            CreateMap<GetEntryNotesDetailByAll, EntryNoteDetail>().ReverseMap();
             //Profiles
             CreateMap<GetProfileByAllResponse, Profiles>().ReverseMap();
 

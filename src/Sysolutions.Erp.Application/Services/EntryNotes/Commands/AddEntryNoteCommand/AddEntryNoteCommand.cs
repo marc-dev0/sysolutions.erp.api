@@ -4,38 +4,42 @@ using Sysolutions.Erp.Application.Commons;
 using Sysolutions.Erp.Domain.Entities;
 using Sysolutions.Erp.Infrastructure.Persistences.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Sysolutions.Erp.Application.Services.Categories.Commands
+namespace Sysolutions.Erp.Application.Services.EntryNotes.Commands.AddEntryNoteCommand
 {
-    public class AddCategoryCommand : IRequest<Response<bool>>
+    public class AddEntryNoteCommand : IRequest<Response<bool>>
     {
-        public string Description { get; set; }
+        public int EntryNoteId { get; set; }
+        public string Correlative { get; set; }
         public string State { get; set; }
         public int RegistrationAccountId { get; set; }
+        public decimal CostPriceTotal { get; set; }
+        public IEnumerable<EntryNoteDetail> EntryDetails { get; set; }
     }
 
-    public class AddCategoryHandler : IRequestHandler<AddCategoryCommand, Response<bool>>
+    public class AddEntryNoteHandler : IRequestHandler<AddEntryNoteCommand, Response<bool>>
     {
-        private readonly iCategoryRepository _categoryRepository;
+        private readonly IEntryNoteRepository _entryNoteRepository;
         private readonly IMapper _mapper;
 
-        public AddCategoryHandler(iCategoryRepository categoryRepository, IMapper mapper)
+        public AddEntryNoteHandler(IEntryNoteRepository entryNoteRepository, IMapper mapper)
         {
-            _categoryRepository = categoryRepository;
+            _entryNoteRepository = entryNoteRepository;
             _mapper = mapper;
         }
 
-        public async Task<Response<bool>> Handle(AddCategoryCommand request, CancellationToken cancellationToken)
+        public async Task<Response<bool>> Handle(AddEntryNoteCommand request, CancellationToken cancellationToken)
         {
             var response = new Response<bool>();
 
             try
             {
-                var requestMap = _mapper.Map<Category>(request);
+                var product = _mapper.Map<EntryNote>(request);
 
-                response.Data = await _categoryRepository.InsertAsync(requestMap);
+                response.Data = await _entryNoteRepository.InsertAsync(product);
 
                 if (response.Data)
                 {

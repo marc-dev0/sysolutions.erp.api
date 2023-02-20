@@ -7,6 +7,8 @@ using Sysolutions.Erp.Application.Services.Products.Queries.GetProductByAll;
 using System.Threading.Tasks;
 using System;
 using Sysolutions.Erp.Application.Services.Masters.Queries.GetMasterByAll;
+using Sysolutions.Erp.Application.Services.Sales.Queries.GetSalesOrderByAllQuery;
+using Sysolutions.Erp.Application.Services.EntryNotes.Queries.GetEntryNotesByAllQuery;
 
 namespace Sysolutions.Erp.WebApi.Controllers.v1
 {
