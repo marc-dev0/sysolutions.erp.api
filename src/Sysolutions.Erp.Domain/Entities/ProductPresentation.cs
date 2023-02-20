@@ -8,6 +8,7 @@
         public string BarCode { get; set; }
         public int Hierarchy { get; set; }
         public int Quantity { get; set; }
+        public int QuantityMax { get; set; }
         public int MeasureFromId { get; set; }
         public int MeasureToId { get; set; }
         public int ProductId { get; set; }
