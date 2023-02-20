@@ -10,7 +10,9 @@
     <DocumentationFile>D:\Course\Sysolutions.Erp\src\Sysolutions.Erp.WebApi\Sysolutions.Erp.WebApi.xml</DocumentationFile>
     <NoWarn>1701;1702;CS1591</NoWarn>
   </PropertyGroup>
-
+	<PropertyGroup>
+	 <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+	</PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.8">
