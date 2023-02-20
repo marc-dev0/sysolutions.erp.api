@@ -30,7 +30,7 @@
 
   <ItemGroup>
     <None Update="Sysolutions.Erp.WebApi.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>False</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
