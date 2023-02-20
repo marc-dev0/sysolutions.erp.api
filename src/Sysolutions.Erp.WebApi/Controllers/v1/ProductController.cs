@@ -6,6 +6,12 @@ using Sysolutions.Erp.Application.Commons;
 using System.Threading.Tasks;
 using System;
 using Sysolutions.Erp.Application.Services.Products.Queries.GetProductByAll;
+using Sysolutions.Erp.Application.Services.Accounts.Commands.AddAccountCommand;
+using Sysolutions.Erp.Application.Services.Products.Commands.AddProductCommand;
+using Sysolutions.Erp.Application.Services.Products.Queries.GetPresentationsByProductId;
+using Sysolutions.Erp.Application.Services.Products.Commands.DeleteProductCommand;
+using Sysolutions.Erp.Application.Services.Products.Queries.GetProductByIdQuery;
+using Sysolutions.Erp.Application.Services.Products.Commands.UpdateProductCommand;
 
 namespace Sysolutions.Erp.WebApi.Controllers.v1
 {
@@ -36,5 +42,95 @@ namespace Sysolutions.Erp.WebApi.Controllers.v1
             }
         }
 
+        [ProducesResponseType(typeof(Response<GetPresentationsByProductIdResponse>), StatusCodes.Status200OK)]
+        [HttpGet("GetPresentationsByProductId")]
+        public async Task<IActionResult> GetPresentationsByProductId(int productId)
+        {
+            try
+            {
+                var response = await _mediator.Send(new GetPresentationsByProductIdQuery(productId));
+                return response.IsSuccess ? Ok(response) : BadRequest(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { mensaje = ex.Message });
+            }
+        }
+
+        [ProducesResponseType(typeof(Response<GetProductByIdResponse>), StatusCodes.Status200OK)]
+        [HttpGet("GetProductByIdAsync")]
+        public async Task<IActionResult> GetProductByIdAsync(int productId)
+        {
+            try
+            {
+                var response = await _mediator.Send(new GetProductByIdQuery() { ProductId = productId });
+                return response.IsSuccess ? Ok(response) : BadRequest(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { mensaje = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Operación que permite crear un nuevo Producto.
+        /// </summary>
+        /// <param name="addProductCommand">addProductCommand</param>
+        /// <returns></returns>
+        [HttpPost("InsertAsync")]
+        public async Task<IActionResult> InsertAsync([FromBody] AddProductCommand addProductCommand)
+        {
+            if (addProductCommand is null)
+                return BadRequest();
+
+            var response = await _mediator.Send(addProductCommand);
+            if (response.IsSuccess)
+                return Ok(response);
+            return BadRequest(response);
+        }
+
+        /// <summary>
+        /// Operación que permite crear un nuevo Producto.
+        /// </summary>
+        /// <param name="deleteProductCommand">deleteProductCommand</param>
+        /// <returns></returns>
+        [HttpDelete("DeleteAsync")]
+        public async Task<IActionResult> DeleteAsync(int productId, int modifiedAccountId)
+        {
+            try
+            {
+                var response = await _mediator.Send(new DeleteProductCommand() { ProductId = productId, ModifiedAccountId = modifiedAccountId });
+                return response.IsSuccess ? Ok(response) : BadRequest(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { mensaje = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Operación que permite crear un nuevo Producto.
+        /// </summary>
+        /// <param name="addProductCommand">addProductCommand</param>
+        /// <returns></returns>
+        [HttpPut("UpdateAsync")]
+        public async Task<IActionResult> InsertAsync([FromBody] UpdateProductCommand command)
+        {
+            if (command is null)
+                return BadRequest();
+
+            try
+            {
+                var response = await _mediator.Send(command);
+                if (response.IsSuccess)
+                    return Ok(response);
+                else
+                    return BadRequest(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { mensaje = ex.Message });
+            }
+        }
     }
 }

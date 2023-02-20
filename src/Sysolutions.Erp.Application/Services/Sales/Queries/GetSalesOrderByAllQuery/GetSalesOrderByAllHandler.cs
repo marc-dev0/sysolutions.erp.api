@@ -1,13 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
 using Sysolutions.Erp.Application.Commons;
-using Sysolutions.Erp.Application.Services.Products.Queries.GetProductByAll;
 using Sysolutions.Erp.Domain.Entities;
 using Sysolutions.Erp.Infrastructure.Persistences.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

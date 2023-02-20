@@ -20,9 +20,18 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Contexts
                 var sqlConnection = new SqlConnection();
                 if (sqlConnection == null) return null;
 
-                sqlConnection.ConnectionString = _configuration.GetConnectionString("CRMConnection");
-                sqlConnection.Open();
-                return sqlConnection;
+                try
+                {
+                    sqlConnection.ConnectionString = _configuration.GetConnectionString("CRMConnection");
+                    //if (sqlConnection.State == ConnectionState.Closed)
+                    //sqlConnection.Open();
+                    return sqlConnection;
+                }
+                catch (System.Exception)
+                {
+                    if (sqlConnection != null) sqlConnection.Dispose();
+                    throw;
+                } 
             }
         }
     }

@@ -8,6 +8,7 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Interfaces
     {
         Task<Product> GetByIdAsync(int productId);
         Task<IEnumerable<Product>> GetAllAsync();
+        Task<IEnumerable<ProductPresentation>> GetPresentationsByProductId(int productId);
         Task<bool> InsertAsync(Product product);
         Task<bool> UpdateAsync(Product product);
         Task<bool> DeleteAsync(int productId, int modifiedAccountId);

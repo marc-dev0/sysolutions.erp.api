@@ -1,10 +1,8 @@
 ﻿using Sysolutions.Erp.Infrastructure.Persistences.Contexts;
 using Sysolutions.Erp.Infrastructure.Persistences.Interfaces;
 using Sysolutions.Erp.Infrastructure.Persistences.Repositories;
-using Sysolutions.Erp.Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RabbitMQ.Client.Core.DependencyInjection;
 
 namespace Sysolutions.Erp.Infrastructure.Extensions
 {
@@ -18,6 +16,14 @@ namespace Sysolutions.Erp.Infrastructure.Extensions
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProfileRepository, ProfileRepository>();
             services.AddScoped<ISalesRepository, SalesRepository>();
+            services.AddScoped<IMasterRepository, MasterRepository>();
+            services.AddScoped<iCategoryRepository, CategoryRepository>();
+            services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
+            services.AddScoped<IMeasureRepository, MeasureRepository>();
+            services.AddScoped<IBrandRepository, BrandRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IStorageRepository, StorageRepository>();
+            services.AddScoped<IEntryNoteRepository, EntryNoteRepository>();
             //services.AddScoped<INotify, Notify>();
 
             /*var rabbitMqSection = configuration.GetSection("RabbitMq");
