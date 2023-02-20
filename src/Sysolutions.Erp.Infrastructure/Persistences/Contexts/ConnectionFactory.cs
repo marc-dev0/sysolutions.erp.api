@@ -32,7 +32,6 @@ namespace Sysolutions.Erp.Infrastructure.Persistences.Contexts
                     if (sqlConnection != null) sqlConnection.Dispose();
                     throw;
                 } 
-                
             }
         }
     }
